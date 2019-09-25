@@ -11,9 +11,7 @@ matrix:
 env:
   global:
     - PACKAGE_NAME=omero-web
-    # TODO: when dependent packages are tagged change this back
-    # - REQUIREMENTS_CHANNEL=manics
-    - REQUIREMENTS_CHANNEL=manics/label/testing
+    - REQUIREMENTS_CHANNEL=manics
     - PATH="$HOME/miniconda/bin:$PATH"
 
 install:

@@ -24,9 +24,7 @@ requirements:
     - django =1.8
     - django-pipeline =1.3.20
     - gunicorn >=19.3
-    # TODO: since omero-marshal is still a testing build 0.6.1.master is < 0.6.1
-    # - omero-marshal >=0.6.1
-    - omero-marshal =0.6.1
+    - omero-marshal =0.6
     - omero-py =5.5
     - pillow
     - python =2.7
