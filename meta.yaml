@@ -34,6 +34,7 @@ test:
     - omero-web web --help
     - omero-web web status
     - omero-web web diagnostics
+    - omero-web web config nginx
   imports:
     # - omeroweb
     # - omeroweb.api
