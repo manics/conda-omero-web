@@ -12,7 +12,6 @@ source:
 build:
   noarch: python
   number: 0
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
   script_env:
     - VERSION_SUFFIX
 
@@ -31,9 +30,10 @@ requirements:
 
 test:
   commands:
-    - omero web --help
-    - omero web diagnostics
-    - omero web status
+    - omero-web --help
+    - omero-web web --help
+    - omero-web web status
+    - omero-web web diagnostics
   imports:
     # - omeroweb
     # - omeroweb.api
