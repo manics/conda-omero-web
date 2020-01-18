@@ -36,13 +36,8 @@ script:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: anaconda -t $CONDA_UPLOAD_TOKEN upload --user $ANACONDA_USER $HOME/miniconda/conda-bld/noarch/$PACKAGE_NAME-*.tar.bz2 --force -l testing
-    on:
-      branch: master
-      condition: "$TRAVIS_OS_NAME = linux"
-  - provider: script
-    skip_cleanup: true
-    script: anaconda -t $CONDA_UPLOAD_TOKEN upload --user $ANACONDA_USER $HOME/miniconda/conda-bld/noarch/$PACKAGE_NAME-*.tar.bz2
+    script: sh deploy.sh $HOME/miniconda/conda-bld/noarch/$PACKAGE_NAME-*.tar.bz2
     on:
       tags: true
+      branch: master
       condition: "$TRAVIS_OS_NAME = linux"
