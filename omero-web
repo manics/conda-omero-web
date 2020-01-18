@@ -1,4 +1,40 @@
-#!/bin/sh
+#!/usr/bin/env python
 
-export OMERODIR="${CONDA_PREFIX}/opt/omero/web/OMERO.web"
-omero "$@"
+import os
+import subprocess
+import sys
+
+
+def run(*args):
+    # print(args)
+    return subprocess.run(*args)
+
+
+omerodir = os.getenv('OMERODIR')
+if not omerodir:
+    omerodir = os.path.join(
+        os.environ['CONDA_PREFIX'], 'opt/omero/web/OMERO.web')
+    os.environ['OMERODIR'] = omerodir
+
+web_commands = (
+    'start',
+    'stop',
+    'restart',
+    'status',
+)
+args = sys.argv[1:]
+if args and args[0] in web_commands:
+    if args[0] == 'start':
+        configdir = os.path.join(omerodir, 'config')
+        if os.path.isdir(configdir):
+            p = run(['omero', 'load', '--glob',
+                     os.path.join(configdir, '*.omero')], check=True)
+    p = run(['omero', 'web'] + args)
+elif args and args[0] in ('help', '--help'):
+    print('Built in commands:\n  {}'.format(web_commands))
+    print('All other commands are passed to omero executable\n')
+    p = run(['omero', '--help'])
+else:
+    p = run(['omero'] + args)
+
+sys.exit(p.returncode)

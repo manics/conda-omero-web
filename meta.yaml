@@ -12,6 +12,7 @@ source:
 build:
   noarch: python
   number: 0
+  script: "python -m pip install . --no-deps --ignore-installed -vv "
   script_env:
     - VERSION_SUFFIX
 
@@ -27,26 +28,43 @@ requirements:
     - omero-py =5.6
     - python =3
 
-test:
-  commands:
-    - omero-web --help
-    - omero-web web --help
-    - omero-web web status
-    - omero-web web diagnostics
-    - omero-web web config nginx
-  imports:
-    # - omeroweb
-    # - omeroweb.api
-    # - omeroweb.feedback
-    # - omeroweb.feedback.templatetags
-    # - omeroweb.webadmin
-    # - omeroweb.webadmin.templatetags
-    # - omeroweb.webclient
-    # - omeroweb.webclient.controller
-    # - omeroweb.webclient.templatetags
-    # - omeroweb.webgateway
-    # - omeroweb.webgateway.templatetags
-    # - omeroweb.webredirect
+outputs:
+  - name: omero-web
+    build:
+      noarch: python
+    test:
+      commands:
+        - omero web --help
+      imports:
+        - omeroweb
+        - omeroweb.api
+        - omeroweb.feedback
+        # - omeroweb.feedback.templatetags
+        - omeroweb.webadmin
+        # - omeroweb.webadmin.templatetags
+        - omeroweb.webclient
+        # - omeroweb.webclient.controller
+        # - omeroweb.webclient.templatetags
+        - omeroweb.webgateway
+        # - omeroweb.webgateway.templatetags
+        - omeroweb.webredirect
+  - name: omero-web-wrapper
+    build:
+      noarch: python
+    script: build-wrapper.sh
+    requirements:
+      host:
+        - python =3
+      run:
+        - {{ pin_subpackage('omero-web', exact=True) }}
+    test:
+      commands:
+        - omero-web --help
+        - omero-web config get
+        - omero-web web --help
+        - omero-web web diagnostics
+        - omero-web web config nginx
+        - omero-web status
 
 about:
   home: https://www.openmicroscopy.org/
