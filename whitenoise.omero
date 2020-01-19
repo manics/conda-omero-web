@@ -1,0 +1,1 @@
+config append --set -- omero.web.middleware '{"index": 0, "class": "whitenoise.middleware.WhiteNoiseMiddleware"}'

@@ -57,6 +57,7 @@ outputs:
         - python =3
       run:
         - {{ pin_subpackage('omero-web', exact=True) }}
+        - whitenoise
     test:
       commands:
         - omero-web --help
@@ -65,6 +66,13 @@ outputs:
         - omero-web web diagnostics
         - omero-web web config nginx
         - omero-web status
+    about:
+      summary: OMERO.web server script
+      description: |
+        Wrapper script for starting and stopping OMERO.web.
+        Automatically configures Whitenoise for serving static files without Nginx.
+      doc_url: https://docs.openmicroscopy.org/omero/latest/sysadmins/unix/install-web/web-deployment.html
+
 
 about:
   home: https://www.openmicroscopy.org/
@@ -72,8 +80,8 @@ about:
   license_family: GPL2
   summary: OMERO.web
   description: |
-    omero-web: OMERO.web Python library.
-    omero-web-server: wrapper script for starting and stopping OMERO.web.
+    OMERO.web Python library.
+    See the omero-web-server package for the omero-web wrapper script.
   doc_url: https://docs.openmicroscopy.org/latest/omero/developers
   dev_url: https://github.com/ome/omero-web
 

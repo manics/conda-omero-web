@@ -3,13 +3,15 @@
 set -eux
 
 OMERODIR="${PREFIX}/opt/omero/web/OMERO.web"
+CONFIGDIR="${PREFIX}/opt/omero/web/config"
 
-mkdir -p "${OMERODIR}/etc/grid/"
+mkdir -p "$PREFIX/bin" "${OMERODIR}/etc/grid" "${CONFIGDIR}"
 
 # Empty directories aren't packaged
 echo "$PKG_NAME $PKG_VERSION $PKG_BUILDNUM" > "${OMERODIR}/etc/grid/.conda-build"
 
-mkdir -p $PREFIX/bin
+cp $RECIPE_DIR/whitenoise.omero "${CONFIGDIR}/"
+
 cp $RECIPE_DIR/omero-web* $PREFIX/bin/
 
 chmod +x $PREFIX/bin/omero-web*
