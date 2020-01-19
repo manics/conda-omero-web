@@ -48,7 +48,7 @@ outputs:
         - omeroweb.webgateway
         # - omeroweb.webgateway.templatetags
         - omeroweb.webredirect
-  - name: omero-web-wrapper
+  - name: omero-web-server
     build:
       noarch: python
     script: build-wrapper.sh
@@ -71,6 +71,9 @@ about:
   license: GNU General Public v2 or later (GPLv2+)
   license_family: GPL2
   summary: OMERO.web
+  description: |
+    omero-web: OMERO.web Python library.
+    omero-web-server: wrapper script for starting and stopping OMERO.web.
   doc_url: https://docs.openmicroscopy.org/latest/omero/developers
   dev_url: https://github.com/ome/omero-web
 
